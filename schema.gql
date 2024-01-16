@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Auth {
+  """Auth Token"""
+  access_token: String!
+}
+
 input CreateUserInput {
   """User email"""
   email: String!
@@ -16,12 +21,22 @@ input CreateUserInput {
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   removeUser(id: String!): User!
+  signUpCustomer(createUserInput: CreateUserInput!): Auth!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
+  signInCustomer(signInAuthInput: SignInAuthInput!): Auth!
   user(id: String!): User!
   users: [User!]!
+}
+
+input SignInAuthInput {
+  """User email"""
+  email: String!
+
+  """User password"""
+  password: String!
 }
 
 input UpdateUserInput {

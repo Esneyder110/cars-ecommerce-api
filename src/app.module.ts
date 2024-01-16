@@ -11,6 +11,7 @@ import { validate, getEnvFilePath, Environment } from 'config/';
 import { PrismaService } from './db/prisma/prisma.service';
 import { join } from 'path';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UsersModule } from './users/users.module';
     }),
     DbModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
