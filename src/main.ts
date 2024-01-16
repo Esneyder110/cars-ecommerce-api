@@ -3,9 +3,11 @@ import { ConfigService } from '@nestjs/config';
 
 import { AppModule } from './app.module';
 import { EnvironmentVariables } from 'config/env.validation';
+import { HttpExceptionFilter } from './erros';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalFilters(new HttpExceptionFilter());
   const configService =
     app.get<ConfigService<EnvironmentVariables>>(ConfigService);
   const port = configService.get('PORT', { infer: true });
