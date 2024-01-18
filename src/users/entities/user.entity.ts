@@ -5,9 +5,11 @@ export class User {
   @Field(() => String, { description: 'User id' })
   id: string;
 
+  // TODO: change to Date type
   @Field(() => Int, { description: 'User creation date' })
   createdAt: number;
 
+  // TODO: change to Date type
   @Field(() => Int, { description: 'User last update date' })
   updatedAt: number;
 

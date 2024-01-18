@@ -36,7 +36,7 @@ export class AuthGuard implements CanActivate {
       });
 
     const user = await this.authService.getUserByToken(authToken);
-    requestGQL.user = user;
+    requestGQL.authInfo = user;
 
     return true;
   }

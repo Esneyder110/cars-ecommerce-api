@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 
 import { AuthService } from './auth.service';
 import { AuthResolver } from './auth.resolver';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './guards/auth/auth.guard';
+import { AuthGuard } from './guards';
 
 @Module({
   imports: [

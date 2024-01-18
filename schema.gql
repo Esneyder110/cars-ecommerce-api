@@ -2,9 +2,43 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Admin {
+  """Admin creation date"""
+  createdAt: Int!
+
+  """Admin email"""
+  email: String!
+
+  """Admin id"""
+  id: String!
+
+  """Admin access level"""
+  level: Int!
+
+  """Admin name"""
+  name: String!
+
+  """Admin last update date"""
+  updatedAt: Int!
+}
+
 type Auth {
   """Auth Token"""
   access_token: String!
+}
+
+input CreateAdminInput {
+  """Admin email"""
+  email: String!
+
+  """Admin access level"""
+  level: Int!
+
+  """Admin name"""
+  name: String!
+
+  """User password"""
+  password: String!
 }
 
 input CreateUserInput {
@@ -19,13 +53,20 @@ input CreateUserInput {
 }
 
 type Mutation {
+  createAdmin(createAdminInput: CreateAdminInput!): Admin!
   createUser(createUserInput: CreateUserInput!): User!
+  removeAdmin(id: String!): Admin!
   removeUser(id: String!): User!
+  signUpAdmin(createAdminInput: CreateAdminInput!): Auth! @deprecated(reason: "Don't use this mutation to create new admins, this is only for the first admin")
   signUpCustomer(createUserInput: CreateUserInput!): Auth!
+  updateAdmin(updateAdminInput: UpdateAdminInput!): Admin!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
+  admin(id: String!): Admin!
+  admins: [Admin!]!
+  signInAdmin(signInAuthInput: SignInAuthInput!): Auth!
   signInCustomer(signInAuthInput: SignInAuthInput!): Auth!
   user(id: String!): User!
   users: [User!]!
@@ -37,6 +78,21 @@ input SignInAuthInput {
 
   """User password"""
   password: String!
+}
+
+input UpdateAdminInput {
+  """Admin email"""
+  email: String
+  id: String!
+
+  """Admin access level"""
+  level: Int
+
+  """Admin name"""
+  name: String
+
+  """User password"""
+  password: String
 }
 
 input UpdateUserInput {
