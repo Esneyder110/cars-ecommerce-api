@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 
 import { UsersService } from './users.service';
 import { User } from './entities';
-import { CurrentUser, UserAuth } from 'src/auth/decorators';
+import { AdminAuth, CurrentUser, UserAuth } from 'src/auth/decorators';
 import { UpdateUserInput } from './dto';
 
 @Resolver(() => User)
@@ -29,15 +29,18 @@ export class UsersResolver {
   //   return this.usersService.createCustomer(createUserInput);
   // }
 
-  // @Query(() => [User], { name: 'users' })
-  // findAll() {
-  //   return this.usersService.findAll();
-  // }
+  // TODO: Pagination
+  @Query(() => [User], { name: 'users' })
+  @AdminAuth(1)
+  findAll() {
+    return this.usersService.findAll();
+  }
 
-  // @Query(() => User, { name: 'user' })
-  // findOne(@Args('id', { type: () => String }) id: string) {
-  //   return this.usersService.findOne(id);
-  // }
+  @Query(() => User, { name: 'user' })
+  @AdminAuth(1)
+  findOne(@Args('id', { type: () => String }) id: string) {
+    return this.usersService.findOne(id);
+  }
 
   // @Mutation(() => User)
   // updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {

@@ -68,6 +68,8 @@ type Query {
   getMyUser: User!
   signInAdmin(signInAuthInput: SignInAuthInput!): Auth!
   signInCustomer(signInAuthInput: SignInAuthInput!): Auth!
+  user(id: String!): User!
+  users: [User!]!
 }
 
 input SignInAuthInput {
