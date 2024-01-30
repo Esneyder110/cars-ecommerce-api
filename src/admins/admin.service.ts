@@ -48,12 +48,20 @@ export class AdminService {
   }
 
   async update(id: string, updateAdminInput: UpdateAdminInput) {
+    let password: string | undefined;
+
+    if (updateAdminInput.password) {
+      const salt = await bcrypt.genSalt();
+      password = await bcrypt.hash(updateAdminInput.password, salt);
+    }
+
     const admin = await this.prisma.admin.update({
       where: {
         id,
       },
       data: {
         ...updateAdminInput,
+        password,
       },
     });
 

@@ -64,6 +64,7 @@ type Mutation {
 type Query {
   admin(id: String!): Admin!
   admins: [Admin!]!
+  getMyAdmin: Admin!
   getMyUser: User!
   signInAdmin(signInAuthInput: SignInAuthInput!): Auth!
   signInCustomer(signInAuthInput: SignInAuthInput!): Auth!
