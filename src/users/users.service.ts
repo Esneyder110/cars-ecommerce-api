@@ -51,13 +51,20 @@ export class UsersService {
 
   async update(id: string, updateUserInput: UpdateUserInput) {
     // return `This action updates a #${id} user`;
-    // TODO: encriptar password
+    let password: string;
+
+    if (updateUserInput.password) {
+      const salt = await bcrypt.genSalt();
+      password = await bcrypt.hash(updateUserInput.password, salt);
+    }
+
     const user = await this.prisma.user.update({
       where: {
         id,
       },
       data: {
         ...updateUserInput,
+        password,
       },
     });
 

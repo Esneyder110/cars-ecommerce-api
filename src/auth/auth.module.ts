@@ -5,7 +5,7 @@ import { APP_GUARD } from '@nestjs/core';
 
 import { AuthService } from './auth.service';
 import { AuthResolver } from './auth.resolver';
-import { AuthGuard } from './guards';
+import { AdminGuard, AuthGuard, UserGuard } from './guards';
 
 @Module({
   imports: [
@@ -25,6 +25,9 @@ import { AuthGuard } from './guards';
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
+    UserGuard,
+    AdminGuard,
   ],
+  exports: [],
 })
 export class AuthModule {}

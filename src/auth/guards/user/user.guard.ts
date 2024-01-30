@@ -14,7 +14,7 @@ export class UserGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     const requestGQL = GqlExecutionContext.create(context).getContext().req;
 
-    if (typeof requestGQL.authInfo.level !== undefined)
+    if (requestGQL.authInfo.level)
       throw new ForbiddenException('Access level found', {
         cause: new Error(),
         description: 'The user is a admin',

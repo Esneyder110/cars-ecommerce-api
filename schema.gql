@@ -54,22 +54,19 @@ input CreateUserInput {
 
 type Mutation {
   createAdmin(createAdminInput: CreateAdminInput!): Admin!
-  createUser(createUserInput: CreateUserInput!): User!
   removeAdmin(id: String!): Admin!
-  removeUser(id: String!): User!
   signUpAdmin(createAdminInput: CreateAdminInput!): Auth! @deprecated(reason: "Don't use this mutation to create new admins, this is only for the first admin")
   signUpCustomer(createUserInput: CreateUserInput!): Auth!
   updateAdmin(updateAdminInput: UpdateAdminInput!): Admin!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  updateMyUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
   admin(id: String!): Admin!
   admins: [Admin!]!
+  getMyUser: User!
   signInAdmin(signInAuthInput: SignInAuthInput!): Auth!
   signInCustomer(signInAuthInput: SignInAuthInput!): Auth!
-  user(id: String!): User!
-  users: [User!]!
 }
 
 input SignInAuthInput {
@@ -98,7 +95,6 @@ input UpdateAdminInput {
 input UpdateUserInput {
   """User email"""
   email: String
-  id: String!
 
   """User name"""
   name: String
