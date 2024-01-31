@@ -27,6 +27,46 @@ type Auth {
   access_token: String!
 }
 
+type Brand {
+  """Brand cars"""
+  cars: [Car!]!
+
+  """Brand id"""
+  id: Int!
+
+  """Brand name"""
+  name: String!
+}
+
+type Car {
+  """Car brand"""
+  brand: Brand!
+
+  """Car color"""
+  color: String!
+
+  """Car id"""
+  id: Int!
+
+  """Car images"""
+  images: [String!]!
+
+  """Car model"""
+  model: String!
+
+  """Car name"""
+  name: String!
+
+  """Car post"""
+  post: Post!
+
+  """Car price"""
+  price: Int!
+
+  """Car transmission"""
+  transmission: String!
+}
+
 input CreateAdminInput {
   """Admin email"""
   email: String!
@@ -39,6 +79,34 @@ input CreateAdminInput {
 
   """User password"""
   password: String!
+}
+
+input CreateBrandInput {
+  """Brand name"""
+  name: String!
+}
+
+input CreatePostInput {
+  """Car brand"""
+  brandId: Int!
+
+  """Car color"""
+  color: String!
+
+  """Car images"""
+  images: [String!]!
+
+  """Car model"""
+  model: String!
+
+  """Car name"""
+  name: String!
+
+  """Car price"""
+  price: Int!
+
+  """Car transmission"""
+  transmission: String!
 }
 
 input CreateUserInput {
@@ -54,18 +122,39 @@ input CreateUserInput {
 
 type Mutation {
   createAdmin(createAdminInput: CreateAdminInput!): Admin!
+  createBrand(createBrandInput: CreateBrandInput!): Brand!
+  createPost(createPostInput: CreatePostInput!): Post!
   removeAdmin(id: String!): Admin!
+  removeBrand(id: Int!): Brand!
+  removePost(id: Int!): Post!
   signUpAdmin(createAdminInput: CreateAdminInput!): Auth! @deprecated(reason: "Don't use this mutation to create new admins, this is only for the first admin")
   signUpCustomer(createUserInput: CreateUserInput!): Auth!
   updateAdmin(updateAdminInput: UpdateAdminInput!): Admin!
+  updateBrand(updateBrandInput: UpdateBrandInput!): Brand!
   updateMyUser(updateUserInput: UpdateUserInput!): User!
+  updatePost(updatePostInput: UpdatePostInput!): Post!
+}
+
+type Post {
+  """Car of the post"""
+  car: Car!
+
+  """Post id"""
+  id: Int!
+
+  """Post user"""
+  user: User!
 }
 
 type Query {
   admin(id: String!): Admin!
   admins: [Admin!]!
+  brand(id: Int!): Brand!
+  brands: [Brand!]!
   getMyAdmin: Admin!
   getMyUser: User!
+  post(id: Int!): Post!
+  posts: [Post!]!
   signInAdmin(signInAuthInput: SignInAuthInput!): Auth!
   signInCustomer(signInAuthInput: SignInAuthInput!): Auth!
   user(id: String!): User!
@@ -95,6 +184,37 @@ input UpdateAdminInput {
   password: String
 }
 
+input UpdateBrandInput {
+  id: Int!
+
+  """Brand name"""
+  name: String
+}
+
+input UpdatePostInput {
+  """Car brand"""
+  brandId: Int
+
+  """Car color"""
+  color: String
+  id: Int!
+
+  """Car images"""
+  images: [String!]
+
+  """Car model"""
+  model: String
+
+  """Car name"""
+  name: String
+
+  """Car price"""
+  price: Int
+
+  """Car transmission"""
+  transmission: String
+}
+
 input UpdateUserInput {
   """User email"""
   email: String
@@ -118,6 +238,9 @@ type User {
 
   """User name"""
   name: String!
+
+  """User posts"""
+  posts: [Post!]!
 
   """User last update date"""
   updatedAt: Int!

@@ -11,12 +11,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  email     String    @unique
   password  String
   name      String
+  posts     Post[]
+  comments  Comment[]
 }
 
 model Admin {
@@ -27,4 +29,41 @@ model Admin {
   password  String
   name      String
   level     Int
+}
+
+model Post {
+  id       Int       @id @default(autoincrement())
+  user     User      @relation(fields: [userId], references: [id])
+  userId   String
+  car      Car?
+  carId    Int?
+  comments Comment[]
+}
+
+model Car {
+  id           Int      @id
+  name         String
+  model        String
+  brand        Brand    @relation(fields: [brandId], references: [id])
+  brandId      Int
+  price        Int
+  images       String[]
+  color        String
+  transmission String
+  post         Post     @relation(fields: [id], references: [id])
+}
+
+model Brand {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  cars Car[]
+}
+
+model Comment {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  postId Int
+  text   String
 }

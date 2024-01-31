@@ -13,6 +13,9 @@ import { PrismaService } from './db/prisma/prisma.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admins/admin.module';
+import { PostModule } from './post/post.module';
+import { CarModule } from './car/car.module';
+import { BrandModule } from './brand/brand.module';
 
 @Module({
   imports: [
@@ -35,6 +38,9 @@ import { AdminModule } from './admins/admin.module';
     UsersModule,
     AuthModule,
     AdminModule,
+    PostModule,
+    CarModule,
+    BrandModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

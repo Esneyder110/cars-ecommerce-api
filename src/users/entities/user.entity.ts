@@ -1,5 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 
+import { Post } from 'src/post/entities';
+
 @ObjectType()
 export class User {
   @Field(() => String, { description: 'User id' })
@@ -16,9 +18,11 @@ export class User {
   @Field(() => String, { description: 'User email' })
   email: string;
 
-  // @Field(() => String, { description: 'User password' })
   password: string;
 
   @Field(() => String, { description: 'User name' })
   name: string;
+
+  @Field(() => [Post], { description: 'User posts' })
+  posts: Post[];
 }
